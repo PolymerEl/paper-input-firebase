@@ -1,0 +1,98 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="paper-firebase-input-behaviors.html">
+<link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
+<link rel="import" href="../paper-input-items/paper-radio-group-items.html">
+<!-- <link rel="import" href="../paper-radio-group/paper-radio-group.html"> -->
+<!-- <link rel="import" href="../paper-radio-button/paper-radio-button.htm"> -->
+<!-- <link rel="import" href="../paper-input-wrapper/paper-input-wrapper.html"> -->
+<!--
+A paper-menu-dropdown using firebase-collection items as menu options
+
+Example:
+
+    <paper-firebase-radio-group></paper-firebase-radio-group>
+
+Example:
+
+   <paper-firebase-radio-group  label="choose Division" value="{{value}}" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
+  </paper-firebase-radio-group>
+
+@demo demo/index.html
+
+-->
+<dom-module id="paper-firebase-radio-group">
+  <template>
+    <style>
+    :host {
+      display: block;
+      /*box-sizing: border-box;*/
+    }
+    #filterCt {
+      color: var(--default-primary-color);
+      padding: 2px 8;
+    }
+    </style>
+    <firebase-collection
+        location="[[location]]"
+        log="[[log]]"
+        order-by-child="[[orderByChild]]"
+        order-by-key="[[orderByKey]]"
+        order-by-value="[[orderByValue]]"
+        order-by-priority="[[orderByPriority]]"
+        limit-to-first="[[limitToFirst]]"
+        limit-to-last="[[limitToLast]]"
+        start-at="[[startAt]]"
+        end-at="[[endAt]]"
+        equal-to="[[equalTo]]"
+        order-value-type="[[orderValueType]]"
+        query="{{query}}"
+        data="{{items}}"
+    ></firebase-collection>
+    <paper-radio-group-items
+        items="[[items]]"
+        label="[[label]]"
+        label-name="[[labelName]]"
+        key-name="[[keyName]]"
+        placeholder="[[placeholder]]"
+        error-message="[[errorMessage]]"
+        readonly="[[readonly]]"
+        no-animations="[[noAnimations]]"
+        horizontal-align="[[horizontalAlign]]"
+        vertical-align="[[verticalAlign]]"
+        value="{{value}}" 
+    ></paper-radio-group-items>
+  </template>
+  <script>
+  Polymer({
+    is: 'paper-firebase-radio-group',
+
+       properties: {
+
+      /**
+       * `keylName` the name to lookup for the key
+       */
+       //@override
+      keyName: {
+        type: String,
+        value: '__firebaseKey__'
+      }
+    },
+    
+     behaviors: [
+      Polymer.paperInputBehaviors.firebase,
+      Polymer.paperInputBehaviors.items
+    ]
+
+
+  });
+  </script>
+</dom-module>
