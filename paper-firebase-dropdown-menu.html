@@ -65,8 +65,8 @@ Example:
         items="[[items]]"
         label="[[label]]"
 
-        label-name="[[labelName]]"
-        key-name="[[keyName]]"
+        label-accessor="[[labelAccessor]]"
+        id-accessor="[[idAccessor]]"
         readonly="[[readonly]]"
         placeholder="[[placeholder]]"
         error-message="[[errorMessage]]"
@@ -89,7 +89,7 @@ Example:
        * `keylName` the name to lookup for the key
        */
        //@override
-      keyName: {
+      idAccessor: {
         type: String,
         value: '__firebaseKey__'
       }
