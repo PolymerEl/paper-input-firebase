@@ -1,10 +1,10 @@
 {
-  "name": "paper-firebase-dropdown",
-  "version": "1.1.0",
+  "name": "paper-firebase-items",
+  "version": "1.2.0",
   "authors": [
     "christophe.geiser@e-smile.org"
   ],
-  "description": "dropdown control for firebase collection",
+  "description": "dropdown and radio-group control directly from firebase collection",
   "keywords": [
     "web-component",
     "web-components",

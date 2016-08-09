@@ -31,7 +31,7 @@ Example:
 @demo demo/index.html
 
 -->
-<dom-module id="paper-firebase-dropdown">
+<dom-module id="paper-firebase-dropdown-menu">
   <template>
     <style>
     :host {
@@ -61,7 +61,7 @@ Example:
     ></firebase-collection>
     <paper-dropdown-menu-items
         
-        value="{{value}"
+        value="{{value}}"
         items="[[items]]"
         label="[[label]]"
 
@@ -82,7 +82,7 @@ Example:
   </template>
   <script>
   Polymer({
-    is: 'paper-firebase-dropdown',
+    is: 'paper-firebase-dropdown-menu',
 
     properties: {
       /**
@@ -92,7 +92,7 @@ Example:
       keyName: {
         type: String,
         value: '__firebaseKey__'
-      },
+      }
     },
     
      behaviors: [

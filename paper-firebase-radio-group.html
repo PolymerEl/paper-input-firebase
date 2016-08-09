@@ -58,16 +58,17 @@ Example:
         data="{{items}}"
     ></firebase-collection>
     <paper-radio-group-items
-        value__="[[selectedValue]]"
         items="[[items]]"
         label="[[label]]"
+        label-name="[[labelName]]"
+        key-name="[[keyName]]"
         placeholder="[[placeholder]]"
         error-message="[[errorMessage]]"
         readonly="[[readonly]]"
         no-animations="[[noAnimations]]"
         horizontal-align="[[horizontalAlign]]"
         vertical-align="[[verticalAlign]]"
-        selected="{{value}}" 
+        value="{{value}}" 
     ></paper-radio-group-items>
   </template>
   <script>
