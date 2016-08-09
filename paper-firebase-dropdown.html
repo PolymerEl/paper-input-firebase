@@ -8,12 +8,14 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="paper-firebase-collection-behaviors.html">
-<link rel="import" href="paper-firebase-dropdown-behaviors.html">
+<!-- <link rel="import" href="paper-firebase-collection-behaviors.html"> -->
+<!-- <link rel="import" href="paper-firebase-dropdown-behaviors.html"> -->
+
 <link rel="import" href="../firebase-element/firebase-collection.html">
-<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../paper-menu/paper-menu.html">
-<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="paper-firebase-input-behaviors.html">
+
+<link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
+<link rel="import" href="../paper-input-items/paper-dropdown-menu-items.html">
 <!--
 A paper-menu-dropdown using firebase-collection items as menu options
 
@@ -57,9 +59,14 @@ Example:
         query="{{query}}"
         data="{{items}}"
     ></firebase-collection>
-    <paper-dropdown-menu
-        value__="[[selectedValue]]"
+    <paper-dropdown-menu-items
+        
+        value="{{value}"
+        items="[[items]]"
         label="[[label]]"
+
+        label-name="[[labelName]]"
+        key-name="[[keyName]]"
         readonly="[[readonly]]"
         placeholder="[[placeholder]]"
         error-message="[[errorMessage]]"
@@ -70,12 +77,8 @@ Example:
         horizontal-align="[[horizontalAlign]]"
         vertical-align="[[verticalAlign]]"
     >
-       <paper-menu class="dropdown-content" selected="{{value}}" attr-for-selected="name" >
-        <template is="dom-repeat" id="dropdownRepeat" items="{{items}}" filter="{{filter}}">
-          <paper-item name="{{_computeItemValue(item)}}">[[_computeItemLabel(item)]]</paper-item>
-        </template>
-      </paper-menu>
-    </paper-dropdown-menu>
+       
+    </paper-dropdown-menu-items>
   </template>
   <script>
   Polymer({
@@ -83,74 +86,20 @@ Example:
 
     properties: {
       /**
-       * An ordered array of data items produced by the current Firebase Query
-       * instance.
+       * `keylName` the name to lookup for the key
        */
-      items: {
-        type: Array,
-        notify: true,
-      },
-
-      /**
-       * `value` for this element. It is derived from passing collection item to _computeItemValue function
-       */
-      value: {
+       //@override
+      keyName: {
         type: String,
-        notify: true
+        value: '__firebaseKey__'
       },
-      
-      /**
-       * `keyAccessorFn`, provide a new function to retrieve item key. 
-       * example : function(item) {return item.__myNewKey__;}
-       */
-      keyAccessorFn: {
-        type: Function,
-        observer: '_keyAccessorFnChanged',
-        value: function() {
-          return function(item) {return item.__firebaseKey__;};
-        }
-      },
-
-      /**
-       * `labelAccessorFn` key for retrieving the `label` from item data object
-       */
-      labelAccessorFn: {
-        type: Function,
-        observer: '_labelAccessorFnChanged',
-        value: function() {
-          return function(item) {return item.label;};
-        }
-      },
-
-      /**
-       * `filter` function passed to `<template is="dom-repeat">`
-       */
-      filter: Function ,
-
-      readonly: Boolean
-    
     },
     
-    behaviors: [
-      Polymer.firebaseBehaviors.collection,
-      Polymer.firebaseBehaviors.dropdown
-    ],
+     behaviors: [
+      Polymer.paperInputBehaviors.firebase,
+      Polymer.paperInputBehaviors.items
+    ]
 
-    _keyAccessorFnChanged: function(fn) {
-      var dataHost = this;
-      this._computeItemValue = fn && (typeof fn === 'function' ? fn :
-        function() { return dataHost[fn].apply(dataHost, arguments); });
-      this.$.dropdownRepeat._debounceTemplate(this.$.dropdownRepeat._render);
-      
-    },
-    
-    _labelAccessorFnChanged: function(fn) {
-      var dataHost = this;
-      this._computeItemLabel = fn && (typeof fn === 'function' ? fn :
-        function() { return dataHost[fn].apply(dataHost, arguments); });
-      this.$.dropdownRepeat._debounceTemplate(this.$.dropdownRepeat._render);
-      
-    },
 
   });
   </script>

@@ -8,12 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="paper-firebase-collection-behaviors.html">
-<link rel="import" href="paper-firebase-dropdown-behaviors.html">
-<link rel="import" href="../firebase-element/firebase-collection.html">
-<link rel="import" href="../paper-radio-group/paper-radio-group.html">
-<link rel="import" href="../paper-radio-button/paper-radio-button.html">
-<link rel="import" href="../paper-input-wrapper/paper-input-wrapper.html">
+<link rel="import" href="paper-firebase-input-behaviors.html">
+<link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
+<link rel="import" href="../paper-input-items/paper-radio-group-items.html">
+<!-- <link rel="import" href="../paper-radio-group/paper-radio-group.html"> -->
+<!-- <link rel="import" href="../paper-radio-button/paper-radio-button.htm"> -->
+<!-- <link rel="import" href="../paper-input-wrapper/paper-input-wrapper.html"> -->
 <!--
 A paper-menu-dropdown using firebase-collection items as menu options
 
@@ -57,103 +57,40 @@ Example:
         query="{{query}}"
         data="{{items}}"
     ></firebase-collection>
-    <paper-input-wrapper
-        label="[[label]]"
-        error-message="[[errorMessage]]"
-        placeholder="[[placeholder]]"
-        no-label-float="[[noLabelFloat]]"
-        always-float-label="[[alwaysFloatLabel]]"
-        >
-    <paper-radio-group
+    <paper-radio-group-items
         value__="[[selectedValue]]"
+        items="[[items]]"
+        label="[[label]]"
+        placeholder="[[placeholder]]"
+        error-message="[[errorMessage]]"
         readonly="[[readonly]]"
         no-animations="[[noAnimations]]"
         horizontal-align="[[horizontalAlign]]"
         vertical-align="[[verticalAlign]]"
         selected="{{value}}" 
-        attr-for-selected="name"
-    >
-       
-        <template is="dom-repeat" id="dropdownRepeat" items="{{items}}" filter="{{filter}}">
-          <paper-radio-button name="{{_computeItemValue(item)}}">[[_computeItemLabel(item)]]</paper-radio-button>
-        </template>
-    </paper-radio-group>
-    </paper-input-wrapper>
+    ></paper-radio-group-items>
   </template>
   <script>
   Polymer({
     is: 'paper-firebase-radio-group',
 
-    properties: {
-      /**
-       * An ordered array of data items produced by the current Firebase Query
-       * instance.
-       */
-      items: {
-        type: Array,
-        notify: true,
-      },
+       properties: {
 
       /**
-       * `value` for this element. It is derived from passing collection item to _computeItemValue function
+       * `keylName` the name to lookup for the key
        */
-      value: {
+       //@override
+      keyName: {
         type: String,
-        notify: true
-      },
-      
-      /**
-       * `keyAccessorFn`, provide a new function to retrieve item key. 
-       * example : function(item) {return item.__myNewKey__;}
-       */
-      keyAccessorFn: {
-        type: Function,
-        observer: '_keyAccessorFnChanged',
-        value: function() {
-          return function(item) {return item.__firebaseKey__;};
-        }
-      },
-
-      /**
-       * `labelAccessorFn` key for retrieving the `label` from item data object
-       */
-      labelAccessorFn: {
-        type: Function,
-        observer: '_labelAccessorFnChanged',
-        value: function() {
-          return function(item) {return item.label;};
-        }
-      },
-
-      /**
-       * `filter` function passed to `<template is="dom-repeat">`
-       */
-      filter: Function ,
-
-      readonly: Boolean
-    
+        value: '__firebaseKey__'
+      }
     },
     
-    behaviors: [
-      Polymer.firebaseBehaviors.collection,
-      Polymer.firebaseBehaviors.dropdown
-    ],
+     behaviors: [
+      Polymer.paperInputBehaviors.firebase,
+      Polymer.paperInputBehaviors.items
+    ]
 
-    _keyAccessorFnChanged: function(fn) {
-      var dataHost = this;
-      this._computeItemValue = fn && (typeof fn === 'function' ? fn :
-        function() { return dataHost[fn].apply(dataHost, arguments); });
-      this.$.dropdownRepeat._debounceTemplate(this.$.dropdownRepeat._render);
-      
-    },
-    
-    _labelAccessorFnChanged: function(fn) {
-      var dataHost = this;
-      this._computeItemLabel = fn && (typeof fn === 'function' ? fn :
-        function() { return dataHost[fn].apply(dataHost, arguments); });
-      this.$.dropdownRepeat._debounceTemplate(this.$.dropdownRepeat._render);
-      
-    },
 
   });
   </script>

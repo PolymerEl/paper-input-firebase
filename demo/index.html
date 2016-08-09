@@ -28,12 +28,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <demo-snippet class="centered-demo">
       <template>
         <template is="dom-bind" id="app">
-          <paper-firebase-dropdown id="dDivision" readonly label="choose Division" value="{{value}}" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
+          <paper-firebase-dropdown id="dDivision" readonly label="choose Division" value="{{value}}" label-accessor="label"  location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
           </paper-firebase-dropdown>
-          <paper-firebase-dropdown order-by-key start-at="{{value}}" end-at="{{value}}" id="dDistrict" label="choose District" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM2">
+          <paper-firebase-dropdown order-by-key start-at="{{value}}" end-at="{{value}}" id="dDistrict" label="choose District" label-accessor="label"  location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM2">
           </paper-firebase-dropdown>
-          <paper-firebase-radio-group id="dDivision" label="choose Division" value="{{value}}" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
+          <paper-firebase-radio-group label="choose Division" value="{{value}}" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
           </paper-firebase-radio-group>
+          <paper-firebase-dropdown id="dDivision2" label="choose Division" value="{{value}}" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
+          </paper-firebase-dropdown>
+          <paper-firebase-dropdown order-by-key start-at="{{value}}" end-at="{{value}}" id="dDistrict2" label="choose District" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM2">
+          </paper-firebase-dropdown>
         </template>
       </template>
     </demo-snippet>
