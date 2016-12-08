@@ -11,11 +11,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!-- <link rel="import" href="paper-firebase-collection-behaviors.html"> -->
 <!-- <link rel="import" href="paper-firebase-dropdown-behaviors.html"> -->
 
-<link rel="import" href="../firebase-element/firebase-collection.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
 <link rel="import" href="paper-firebase-input-behaviors.html">
 
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-dropdown-menu-items.html">
+<link rel="import" href="../paper-input-items/lookup-accessor.html">
+
 <!--
 A paper-menu-dropdown using firebase-collection items as menu options
 
@@ -43,8 +45,9 @@ Example:
       padding: 2px 8;
     }
     </style>
-    <firebase-collection
-        location="[[location]]"
+    <firebase-query
+        path="[[path]]"
+        app-name="[[appName]]"
         log="[[log]]"
         order-by-child="[[orderByChild]]"
         order-by-key="[[orderByKey]]"
@@ -58,15 +61,17 @@ Example:
         order-value-type="[[orderValueType]]"
         query="{{query}}"
         data="{{items}}"
-    ></firebase-collection>
+    ></firebase-query>
     <paper-dropdown-menu-items
         
         value="{{value}}"
         items="[[items]]"
         label="[[label]]"
 
+        filter="[[filter]]"
         label-accessor="[[labelAccessor]]"
-        id-accessor="[[idAccessor]]"
+        value-accessor="[[valueAccessor]]"
+        
         readonly="[[readonly]]"
         placeholder="[[placeholder]]"
         error-message="[[errorMessage]]"
@@ -85,13 +90,18 @@ Example:
     is: 'paper-firebase-dropdown-menu',
 
     properties: {
-      /**
-       * `keylName` the name to lookup for the key
+       /**
+       * @override
+       * `valueAccessor` the function for accessing value
        */
-       //@override
-      idAccessor: {
+      valueAccessor: {
         type: String,
-        value: '__firebaseKey__'
+        observe: '__observeFunctionChange',
+        value: function() {
+          return function(item) {
+            return item.__firebaseKey__;
+          };
+        }
       }
     },
     

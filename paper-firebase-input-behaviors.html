@@ -19,15 +19,21 @@ Polymer.paperInputBehaviors.firebase = {
     /**
      * A Firebase API location that references an accessible document.
      */
-    location: {
+    path: {
       type: String,
       notify: true,
       reflectToAttribute: true
     },
 
+    appName: {
+      type: String,
+      reflectToAttribute: true,
+      value: '',
+    },
+
     /**
      * Firebase Query object corresponding to `location`.
-     */
+     
     query: {
       type: Object,
       notify: true,

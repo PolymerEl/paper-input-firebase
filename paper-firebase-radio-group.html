@@ -9,8 +9,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="paper-firebase-input-behaviors.html">
+<link rel="import" href="../polymerfire/firebase-query.html"
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-radio-group-items.html">
+<link rel="import" href="../paper-input-items/lookup-accessor.html">
 <!-- <link rel="import" href="../paper-radio-group/paper-radio-group.html"> -->
 <!-- <link rel="import" href="../paper-radio-button/paper-radio-button.htm"> -->
 <!-- <link rel="import" href="../paper-input-wrapper/paper-input-wrapper.html"> -->
@@ -41,8 +43,9 @@ Example:
       padding: 2px 8;
     }
     </style>
-    <firebase-collection
-        location="[[location]]"
+    <firebase-query
+        path="[[path]]"
+        app-name="[[appName]]"
         log="[[log]]"
         order-by-child="[[orderByChild]]"
         order-by-key="[[orderByKey]]"
@@ -56,12 +59,14 @@ Example:
         order-value-type="[[orderValueType]]"
         query="{{query}}"
         data="{{items}}"
-    ></firebase-collection>
+    ></firebase-query>
     <paper-radio-group-items
         items="[[items]]"
         label="[[label]]"
+
         label-accessor="[[labelAccessor]]"
-        id-accessor="[[idAccessor]]"
+        value-accessor="[[valueAccessor]]"
+        
         placeholder="[[placeholder]]"
         error-message="[[errorMessage]]"
         readonly="[[readonly]]"
@@ -78,13 +83,19 @@ Example:
        properties: {
 
       /**
-       * `keylName` the name to lookup for the key
+       * @override
+       * `valueAccessor` the function for accessing value
        */
-       //@override
-      idAccessor: {
+      valueAccessor: {
         type: String,
-        value: '__firebaseKey__'
+        observe: '__observeFunctionChange',
+        value: function() {
+          return function(item) {
+            return item.__firebaseKey__;
+          };
+        }
       }
+
     },
     
      behaviors: [
