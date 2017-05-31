@@ -71,8 +71,10 @@ Example:
         filter="[[filter]]"
         label-accessor="[[labelAccessor]]"
         value-accessor="[[valueAccessor]]"
-        
+      
+        required="[[required]]"
         readonly="[[readonly]]"
+        disabled="[[disabled]]"
         placeholder="[[placeholder]]"
         error-message="[[errorMessage]]"
         opened="[[opened]]"
@@ -96,10 +98,10 @@ Example:
        */
       valueAccessor: {
         type: String,
-        observe: '__observeFunctionChange',
+        // observe: '__observeFunctionChange',
         value: function() {
           return function(item) {
-            return item.__firebaseKey__;
+            return item.$key;
           };
         }
       }

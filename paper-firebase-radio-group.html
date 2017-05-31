@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="paper-firebase-input-behaviors.html">
-<link rel="import" href="../polymerfire/firebase-query.html"
+<link rel="import" href="../polymerfire/firebase-query.html">
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-radio-group-items.html">
 <link rel="import" href="../paper-input-items/lookup-accessor.html">
@@ -36,7 +36,6 @@ Example:
     <style>
     :host {
       display: block;
-      /*box-sizing: border-box;*/
     }
     #filterCt {
       color: var(--default-primary-color);
@@ -58,23 +57,19 @@ Example:
         equal-to="[[equalTo]]"
         order-value-type="[[orderValueType]]"
         query="{{query}}"
-        data="{{items}}"
-    ></firebase-query>
+        data="{{items}}"></firebase-query>
     <paper-radio-group-items
         items="[[items]]"
         label="[[label]]"
-
         label-accessor="[[labelAccessor]]"
         value-accessor="[[valueAccessor]]"
-        
         placeholder="[[placeholder]]"
         error-message="[[errorMessage]]"
         readonly="[[readonly]]"
         no-animations="[[noAnimations]]"
         horizontal-align="[[horizontalAlign]]"
         vertical-align="[[verticalAlign]]"
-        value="{{value}}" 
-    ></paper-radio-group-items>
+        value="{{value}}"></paper-radio-group-items>
   </template>
   <script>
   Polymer({
@@ -88,10 +83,10 @@ Example:
        */
       valueAccessor: {
         type: String,
-        observe: '__observeFunctionChange',
+        // observe: '__observeFunctionChange',
         value: function() {
           return function(item) {
-            return item.__firebaseKey__;
+            return item.$key;
           };
         }
       }
