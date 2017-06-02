@@ -12,9 +12,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
 /** @polymerBehavior */
 
-Polymer.paperInputBehaviors = Polymer.paperInputBehaviors || {};
-
-Polymer.paperInputBehaviors.firebase = {
+window.Polymer = window.Polymer || {};
+Polymer.behaviors = Polymer.behaviors || {};
+/* @polymerBehavior Polymer.behaviors.paperInputItemsImpl */
+Polymer.behaviors.firebaseInput = {
+//Polymer.paperInputBehaviors = Polymer.paperInputBehaviors || {};
+//Polymer.paperInputBehaviors.firebase = {
   properties: {
     /**
      * A Firebase API location that references an accessible document.
