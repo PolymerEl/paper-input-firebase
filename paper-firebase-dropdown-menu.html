@@ -8,12 +8,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../polymer/polymer.html">
-<!-- <link rel="import" href="paper-firebase-collection-behaviors.html"> -->
-<!-- <link rel="import" href="paper-firebase-dropdown-behaviors.html"> -->
-
-<link rel="import" href="../polymerfire/firebase-query.html">
 <link rel="import" href="paper-firebase-input-behaviors.html">
 
+<link rel="import" href="../firebase-nest/firebase-nest.html">
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-dropdown-menu-items.html">
 <link rel="import" href="../paper-input-items/lookup-accessor.html">
@@ -45,7 +42,7 @@ Example:
       padding: 2px 8;
     }
     </style>
-    <firebase-query
+    <firebase-nest
         path="[[path]]"
         app-name="[[appName]]"
         log="[[log]]"
@@ -59,9 +56,10 @@ Example:
         end-at="[[endAt]]"
         equal-to="[[equalTo]]"
         order-value-type="[[orderValueType]]"
-        query="{{query}}"
         data="{{items}}"
-    ></firebase-query>
+    >
+      <slot></slot>
+    </firebase-nest>
     <paper-dropdown-menu-items
         
         value="{{value}}"
@@ -90,6 +88,10 @@ Example:
   <script>
   Polymer({
     is: 'paper-firebase-dropdown-menu',
+    behaviors: [
+      Polymer.behaviors.firebaseInput ,
+   	  Polymer.behaviors.paperInputItems 
+    ],
 
     properties: {
        /**
@@ -105,16 +107,7 @@ Example:
           };
         }
       }
-    },
-    
-     behaviors: [
-     	Polymer.behaviors.firebaseInput ,
-     	Polymer.behaviors.paperInputItems 
-      //Polymer.paperInputBehaviors.firebase,
-      //Polymer.paperInputBehaviors.items
-    ]
-
-
+    }
   });
   </script>
 </dom-module>

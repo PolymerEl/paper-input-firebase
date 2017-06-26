@@ -9,7 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="paper-firebase-input-behaviors.html">
-<link rel="import" href="../polymerfire/firebase-query.html">
+<!-- <link rel="import" href="../polymerfire/firebase-query.html"> -->
+<link rel="import" href="../firebase-nest/firebase-nest.html">
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-radio-group-items.html">
 <link rel="import" href="../paper-input-items/lookup-accessor.html">
@@ -42,7 +43,7 @@ Example:
       padding: 2px 8;
     }
     </style>
-    <firebase-query
+    <firebase-nest
         path="[[path]]"
         app-name="[[appName]]"
         log="[[log]]"
@@ -56,8 +57,9 @@ Example:
         end-at="[[endAt]]"
         equal-to="[[equalTo]]"
         order-value-type="[[orderValueType]]"
-        query="{{query}}"
-        data="{{items}}"></firebase-query>
+        data="{{items}}">
+          <slot></slot>
+        </firebase-nest>
     <paper-radio-group-items
         items="[[items]]"
         label="[[label]]"
@@ -75,7 +77,12 @@ Example:
   Polymer({
     is: 'paper-firebase-radio-group',
 
-       properties: {
+   behaviors: [
+   	Polymer.behaviors.firebaseInput ,
+   	Polymer.behaviors.paperInputItems 
+  ],
+
+   properties: {
 
       /**
        * @override
@@ -91,16 +98,7 @@ Example:
         }
       }
 
-    },
-    
-     behaviors: [
-     	Polymer.behaviors.firebaseInput ,
-     	Polymer.behaviors.paperInputItems 
-      //Polymer.paperInputBehaviors.firebase,
-      //Polymer.paperInputBehaviors.items
-    ]
-
-
+    }
   });
   </script>
 </dom-module>

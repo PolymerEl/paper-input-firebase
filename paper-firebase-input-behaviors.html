@@ -35,15 +35,6 @@ Polymer.behaviors.firebaseInput = {
     },
 
     /**
-     * Firebase Query object corresponding to `location`.
-     
-    query: {
-      type: Object,
-      notify: true,
-      readOnly: true
-    },
-
-    /**
      * If true, verbose debugging information will be printed to the console.
      */
     log: {
@@ -51,18 +42,14 @@ Polymer.behaviors.firebaseInput = {
       value: false,
       reflectToAttribute: true
     },
-    // /**
-    //  * An ordered array of data items produced by the current Firebase Query
-    //  * instance.
-    //  */
-    // data: {
-    //   type: Array,
-    //   readOnly: true,
-    //   notify: true,
-    //   value: function() {
-    //     return [];
-    //   }
-    // },
+
+    /**
+     * An ordered array of data items produced by firebase-nest 
+     */
+    items: {
+      type: Array,
+      notify: true
+    },
 
     /**
      * Specify a child key to order the set of records reflected on the
