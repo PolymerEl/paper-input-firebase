@@ -88,6 +88,7 @@ Example:
   <script>
   Polymer({
     is: 'paper-firebase-dropdown-menu',
+    
     behaviors: [
       Polymer.behaviors.firebaseInput ,
    	  Polymer.behaviors.paperInputItems 
@@ -100,7 +101,6 @@ Example:
        */
       valueAccessor: {
         type: String,
-        // observe: '__observeFunctionChange',
         value: function() {
           return function(item) {
             return item.$key;
