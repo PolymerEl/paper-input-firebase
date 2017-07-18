@@ -32,7 +32,7 @@
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
     "paper-item": "PolymerElements/paper-item#^1.2.1",
     "paper-input-items": "PolymerEl/paper-input-items#^0.1.2",
-    "firebase-nest": "firebase-nest"
+    "firebase-nest": "*"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
