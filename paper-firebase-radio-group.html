@@ -61,6 +61,9 @@ Example:
           <slot></slot>
         </firebase-nest>
     <paper-radio-group-items
+        value="{{value}}"
+        selected-item-label="{{selectedItemLabel}}"
+
         items="[[items]]"
         label="[[label]]"
 
@@ -76,7 +79,7 @@ Example:
         no-animations="[[noAnimations]]"
         horizontal-align="[[horizontalAlign]]"
         vertical-align="[[verticalAlign]]"
-        value="{{value}}"></paper-radio-group-items>
+        ></paper-radio-group-items>
   </template>
   <script>
   Polymer({
@@ -101,6 +104,11 @@ Example:
             return item.$key;
           };
         }
+      },
+
+      selectedItemLabel: {
+        type: String,
+        notify: true
       }
 
     }

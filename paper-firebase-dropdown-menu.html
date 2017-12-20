@@ -37,10 +37,7 @@ Example:
       display: block;
       /*box-sizing: border-box;*/
     }
-    #filterCt {
-      color: var(--default-primary-color);
-      padding: 2px 8;
-    }
+  
     </style>
     <firebase-nest
         path="[[path]]"
@@ -63,6 +60,8 @@ Example:
     <paper-dropdown-menu-items
         
         value="{{value}}"
+        selected-item-label="{{selectedItemLabel}}"
+
         items="[[items]]"
         label="[[label]]"
 
@@ -110,6 +109,11 @@ Example:
             return item.$key;
           };
         }
+      },
+
+      selectedItemLabel: {
+        type: String,
+        notify: true
       }
     }
   });
