@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="paper-firebase-input-behaviors.html">
 
 <link rel="import" href="../firebase-nest/firebase-nest.html">
+<link rel="import" href="../firebase-nest/firebase-async-behavior.html">
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-dropdown-menu-items.html">
 <link rel="import" href="../paper-input-items/lookup-accessor.html">
@@ -94,7 +95,8 @@ Example:
     
     behaviors: [
       Polymer.behaviors.firebaseInput ,
-   	  Polymer.behaviors.paperInputItems 
+   	  Polymer.behaviors.paperInputItems,
+      Polymer.firebaseNest.async 
     ],
 
     properties: {
