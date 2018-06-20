@@ -45,6 +45,7 @@ Example:
     </style>
     <firebase-nest
         path="[[path]]"
+        hard-reset="[[hardReset]]"
         app-name="[[appName]]"
         log="[[log]]"
         order-by-child="[[orderByChild]]"
@@ -57,7 +58,9 @@ Example:
         end-at="[[endAt]]"
         equal-to="[[equalTo]]"
         order-value-type="[[orderValueType]]"
-        data="{{items}}">
+        data="{{items}}"
+        nested-path="[[nestedPath]]"
+        >
           <slot></slot>
         </firebase-nest>
     <paper-radio-group-items

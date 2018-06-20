@@ -16,8 +16,8 @@ window.Polymer = window.Polymer || {};
 Polymer.behaviors = Polymer.behaviors || {};
 /* @polymerBehavior Polymer.behaviors.paperInputItemsImpl */
 Polymer.behaviors.firebaseInput = {
-//Polymer.paperInputBehaviors = Polymer.paperInputBehaviors || {};
-//Polymer.paperInputBehaviors.firebase = {
+  //Polymer.paperInputBehaviors = Polymer.paperInputBehaviors || {};
+  //Polymer.paperInputBehaviors.firebase = {
   properties: {
     /**
      * A Firebase API location that references an accessible document.
@@ -158,8 +158,25 @@ Polymer.behaviors.firebaseInput = {
       type: String,
       value: 'string',
       reflectToAttribute: true
+    },
+
+    /* 
+     * `nestedPath` the path to loop throught for loading data [{key: 'myKey', path: '/pathToDb', defaultValue: 'default value', appName: ''}]
+     */
+    nestedPath: {
+      type: Array
+    },
+
+    /* 
+     * `hardReset` sometimes, we need to really make sure data is properly reset (e.g. in a dom-repeat, when the label is reset, 
+     * https://github.com/Polymer/polymer/issues/3548) 
+     */
+    hardReset: {
+      type: Boolean,
+      value: false
     }
   }
 
 };
+
 </script>
