@@ -24,14 +24,11 @@ Polymer.behaviors.firebaseInput = {
      */
     path: {
       type: String,
-      notify: true,
-      reflectToAttribute: true
+      notify: true
     },
 
     appName: {
-      type: String,
-      reflectToAttribute: true,
-      value: '',
+      type: String
     },
 
     /**
@@ -56,27 +53,21 @@ Polymer.behaviors.firebaseInput = {
      * client.
      */
     orderByChild: {
-      type: String,
-      value: null,
-      reflectToAttribute: true
+      type: String
     },
 
     /**
      * Specify to order by key the set of records reflected on the client.
      */
     orderByKey: {
-      type: Boolean,
-      value: false,
-      reflectToAttribute: true
+      type: Boolean
     },
 
     /**
      * Specify to order by value the set of records reflected on the client.
      */
     orderByValue: {
-      type: Boolean,
-      value: false,
-      reflectToAttribute: true
+      type: Boolean
     },
 
     /**
@@ -84,9 +75,7 @@ Polymer.behaviors.firebaseInput = {
      * client.
      */
     orderByPriority: {
-      type: Boolean,
-      value: false,
-      reflectToAttribute: true
+      type: Boolean
     },
 
     /**
@@ -94,9 +83,7 @@ Polymer.behaviors.firebaseInput = {
      * the first certain number of children.
      */
     limitToFirst: {
-      type: Number,
-      value: null,
-      reflectToAttribute: true,
+      type: Number
     },
 
     /**
@@ -104,9 +91,7 @@ Polymer.behaviors.firebaseInput = {
      * the last certain number of children.
      */
     limitToLast: {
-      type: Number,
-      value: null,
-      reflectToAttribute: true
+      type: Number
     },
 
     /**
@@ -114,9 +99,7 @@ Polymer.behaviors.firebaseInput = {
      * collection.
      */
     startAt: {
-      type: String,
-      value: null,
-      reflectToAttribute: true
+      type: String
     },
 
     /**
@@ -124,9 +107,7 @@ Polymer.behaviors.firebaseInput = {
      * collection.
      */
     endAt: {
-      type: String,
-      value: null,
-      reflectToAttribute: true
+      type: String
     },
 
     /**
@@ -136,9 +117,7 @@ Polymer.behaviors.firebaseInput = {
      * type.
      */
     equalTo: {
-      type: String,
-      value: null,
-      reflectToAttribute: true
+      type: String
     },
 
     /**
@@ -156,8 +135,7 @@ Polymer.behaviors.firebaseInput = {
      */
     orderValueType: {
       type: String,
-      value: 'string',
-      reflectToAttribute: true
+      value: 'string'
     },
 
     /* 

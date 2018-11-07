@@ -9,14 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="paper-firebase-input-behaviors.html">
-<!-- <link rel="import" href="../polymerfire/firebase-query.html"> -->
 <link rel="import" href="../firebase-nest/firebase-nest.html">
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-radio-group-items.html">
 <link rel="import" href="../paper-input-items/lookup-accessor.html">
-<!-- <link rel="import" href="../paper-radio-group/paper-radio-group.html"> -->
-<!-- <link rel="import" href="../paper-radio-button/paper-radio-button.htm"> -->
-<!-- <link rel="import" href="../paper-input-wrapper/paper-input-wrapper.html"> -->
+
 <!--
 A paper-menu-dropdown using firebase-collection items as menu options
 
@@ -101,7 +98,6 @@ Example:
        */
       valueAccessor: {
         type: String,
-        // observe: '__observeFunctionChange',
         value: function() {
           return function(item) {
             return item.$key;

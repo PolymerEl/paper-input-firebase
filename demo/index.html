@@ -14,10 +14,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>paper-firebase-dropdown Demo</title>
-  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <!-- Ensure Web Animations polyfill is loaded since neon-animation 2.0 doesn't import it -->
+  <link rel="import" href="../../neon-animation/web-animations.html">
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../paper-input-items/lookup-accessor.html">
+  <link rel="import" href="../../polymerfire/firebase-app.html">
   <link rel="import" href="../paper-firebase-dropdown-menu.html">
   <link rel="import" href="../paper-firebase-radio-group.html">
 </head>
@@ -27,30 +30,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h4>paper-firebase-dropdown</h4>
     <p>Use firebase collection items as paper-dropdown-menu options</p>
     <demo-snippet class="centered-demo">
-      <template>
-        <template is="dom-bind" id="app">
-          <lookup-accessor path="label" accessor="{{labelAccessor}}"></lookup-accessor>
-          <lookup-accessor path="name" accessor="{{nameAccessor}}"></lookup-accessor>
-          <lookup-accessor path="key" accessor="{{valueAccessor}}"></lookup-accessor>
-     
-          <paper-firebase-dropdown-menu id="dDivision" label="choose Division" value="{{value}}"  location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
-          </paper-firebase-dropdown-menu>
-          <paper-firebase-dropdown-menu order-by-key start-at="{{value}}" end-at="{{value}}" id="dDistrict" label="choose District" location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM2">
-          </paper-firebase-dropdown-menu>
-          <paper-firebase-radio-group label="choose Division" value="{{value}}"  log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
-          </paper-firebase-radio-group>
-           <paper-firebase-dropdown-menu  label="all Countries" value="{{c}}" label-accessor="[[nameAccessor]]"  location="https://pre-ignition-meta.firebaseio.com/countryNames">
-          </paper-firebase-dropdown-menu>
-        </template>
+      <template preserve-content>
+        <dom-bind id="app">
+          <template>
+            <firebase-app log app="{{app}}" auth-domain="[[authDomain]]" database-url="[[databaseURL]]" api-key="[[apiKey]]"></firebase-app>
+            <lookup-accessor path="label" accessor="{{labelAccessor}}"></lookup-accessor>
+            <lookup-accessor path="name" accessor="{{nameAccessor}}"></lookup-accessor>
+            <lookup-accessor path="key" accessor="{{valueAccessor}}"></lookup-accessor>
+            <paper-firebase-dropdown-menu id="dDivision" app="[[app]]" label="choose Division" value="{{value}}" path="/countries/BGD/ADM1">
+            </paper-firebase-dropdown-menu>
+            <paper-firebase-dropdown-menu order-by-key app="[[app]]" start-at="{{value}}" end-at="{{value}}___" id="dDistrict" label="choose District" path="/countries/BGD/ADM2">
+            </paper-firebase-dropdown-menu>
+            <paper-firebase-radio-group label="choose Division" app="[[app]]" value="{{value}}" log path="/countries/BGD/ADM1">
+            </paper-firebase-radio-group>
+            <paper-firebase-dropdown-menu label="all Countries" value="{{c}}" label-accessor="[[nameAccessor]]" path="/countryNames">
+            </paper-firebase-dropdown-menu>
+          </template>
+        </dom-bind>
+        <script>
+        window.addEventListener('WebComponentsReady', function() {
+          app = document.querySelector('#app');
+          console.info('APP');
+          app.value = 'BD_CG';
+
+          app.apiKey = 'AIzaSyAbLJ5nMHaFS_YXioay8b28RnV43JvoEms';
+          app.databaseURL = 'https://pre-ignition-meta.firebaseio.com/';
+          app.authDomain = 'pre-ignition-meta.firebaseapp.com';
+
+        });
+        </script>
       </template>
     </demo-snippet>
   </div>
-  <script>
-  window.addEventListener('WebComponentsReady', function() {
-    app = document.querySelector('#app');
-    app.value = "BD_CG"
-  });
-  </script>
 </body>
 
 </html>
