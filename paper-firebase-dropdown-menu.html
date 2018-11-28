@@ -8,116 +8,132 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="paper-firebase-input-behaviors.html">
+<link rel="import" href="paper-firebase-input-mixin.html">
 <link rel="import" href="../firebase-nest/firebase-nest.html">
-<link rel="import" href="../firebase-nest/async-behavior.html">
+<link rel="import" href="../firebase-nest/async-mixin.html">
 <link rel="import" href="../paper-input-items/paper-input-items-behaviors.html">
 <link rel="import" href="../paper-input-items/paper-dropdown-menu-items.html">
 <link rel="import" href="../paper-input-items/lookup-accessor.html">
 
-<!--
-A paper-menu-dropdown using firebase-collection items as menu options
-
-Example:
-
-    <paper-firebase-dropdown></paper-firebase-dropdown>
-
-Example:
-
-   <paper-firebase-dropdown  label="choose Division" value="{{value}}" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
-  </paper-firebase-dropdown>
-
-@demo demo/index.html
-
--->
 <dom-module id="paper-firebase-dropdown-menu">
   <template>
     <style>
     :host {
       display: block;
     }
-  
+
     </style>
-    <firebase-nest
-        path="[[path]]"
-        hard-reset="[[hardReset]]"
-        app-name="[[appName]]"
-        log="[[log]]"
-        order-by-child="[[orderByChild]]"
-        order-by-key="[[orderByKey]]"
-        order-by-value="[[orderByValue]]"
-        order-by-priority="[[orderByPriority]]"
-        limit-to-first="[[limitToFirst]]"
-        limit-to-last="[[limitToLast]]"
-        start-at="[[startAt]]"
-        end-at="[[endAt]]"
-        equal-to="[[equalTo]]"
-        order-value-type="[[orderValueType]]"
-        data="{{items}}"
-        nested-path="[[nestedPath]]"
-    >
+    <firebase-nest 
+      path="[[path]]" 
+      hard-reset="[[hardReset]]" 
+      app-name="[[appName]]" 
+      log="[[log]]" 
+      order-by-child="[[orderByChild]]" 
+      order-by-key="[[orderByKey]]" 
+      order-by-value="[[orderByValue]]" 
+      order-by-priority="[[orderByPriority]]" 
+      limit-to-first="[[limitToFirst]]" 
+      limit-to-last="[[limitToLast]]" 
+      start-at="[[startAt]]" 
+      end-at="[[endAt]]" 
+      equal-to="[[equalTo]]" 
+      order-value-type="[[orderValueType]]" 
+      data="{{items}}" 
+      nested-path="[[nestedPath]]">
       <slot></slot>
     </firebase-nest>
-    <paper-dropdown-menu-items
-        
-        value="{{value}}"
-        selected-item-label="{{selectedItemLabel}}"
-
-        items="[[items]]"
-        label="[[label]]"
-
-        filter="[[filter]]"
-        
-        label-accessor="[[labelAccessor]]"
-        value-accessor="[[valueAccessor]]"
-
-        label-path="[[labelPath]]"
-        value-path="[[valuePath]]"
-      
-        required="[[required]]"
-        readonly="[[readonly]]"
-        disabled="[[disabled]]"
-        placeholder="[[placeholder]]"
-        error-message="[[errorMessage]]"
-        opened="[[opened]]"
-        no-label-float="[[noLabelFloat]]"
-        always-float-label="[[alwaysFloatLabel]]"
-        no-animations="[[noAnimations]]"
-        horizontal-align="[[horizontalAlign]]"
-        vertical-align="[[verticalAlign]]"
-    >
-       
+    <paper-dropdown-menu-items 
+      value="{{value}}" 
+      selected-item-label="{{selectedItemLabel}}" 
+      items="[[items]]" 
+      label="[[label]]" 
+      filter="[[filter]]" 
+      label-accessor="[[labelAccessor]]" 
+      value-accessor="[[valueAccessor]]" 
+      label-path="[[labelPath]]" 
+      value-path="[[valuePath]]" 
+      required="[[required]]" 
+      readonly="[[readonly]]" 
+      disabled="[[disabled]]" 
+      placeholder="[[placeholder]]" 
+      error-message="[[errorMessage]]" 
+      opened="[[opened]]" 
+      no-label-float="[[noLabelFloat]]" 
+      always-float-label="[[alwaysFloatLabel]]" 
+      no-animations="[[noAnimations]]" 
+      horizontal-align="[[horizontalAlign]]" 
+      vertical-align="[[verticalAlign]]">
     </paper-dropdown-menu-items>
   </template>
   <script>
-  Polymer({
-    is: 'paper-firebase-dropdown-menu',
-    
-    behaviors: [
-      Polymer.behaviors.firebaseInput ,
-   	  Polymer.behaviors.paperInputItems,
-      Polymer.firebaseNest.async 
-    ],
+  (function() {
 
-    properties: {
-       /**
-       * @override
-       * `valueAccessor` the function for accessing value
-       */
-      valueAccessor: {
-        type: String,
-        value: function() {
-          return function(item) {
-            return item.$key;
-          };
-        }
-      },
+    /**
+     * ## PaperFirebaseDropdownMenu
+     *
+     * `<paper-firebase-dropdown-menu>` 
+     * A paper-menu-dropdown using firebase-collection items as menu options
+     * 
+     * Example:
+     * 
+     *     <paper-firebase-dropdown></paper-firebase-dropdown>
+     * 
+     * Example:
+     * 
+     *    <paper-firebase-dropdown  label="choose Division" value="{{value}}" label-accessor="label" log location="https://pre-ignition-meta.firebaseio.com/countries/BGD/ADM1">
+     *   </paper-firebase-dropdown>
+     * 
+     *
+     * @memberof PolymerEl
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     **/
+    class PaperFirebaseDropdownMenu extends
+    Polymer.mixinBehaviors([
+        Polymer.behaviors.paperInputItems
+      ],
+      PolymerEl.mixin.PaperInputProperties(
+        PolymerEl.mixin.Async(
+          Polymer.Element))) {
 
-      selectedItemLabel: {
-        type: String,
-        notify: true
+      static get is() { return 'paper-firebase-dropdown-menu'; }
+
+      static get properties() {
+        return {
+          /**
+           * @override
+           * `valueAccessor` the function for accessing value
+           */
+          valueAccessor: {
+            type: String,
+            value: function() {
+              return function(item) {
+                return item.$key;
+              };
+            }
+          },
+
+          selectedItemLabel: {
+            type: String,
+            notify: true
+          }
+        };
       }
     }
-  });
+
+    customElements.define(PaperFirebaseDropdownMenu.is, PaperFirebaseDropdownMenu);
+
+    if (!window.PolymerEl) {
+      window.PolymerEl = {};
+    }
+
+    /* 
+     * @namespace MultiChart
+     */
+    window.PolymerEl.PaperFirebaseDropdownMenu = PaperFirebaseDropdownMenu;
+
+  })();
+
   </script>
 </dom-module>
